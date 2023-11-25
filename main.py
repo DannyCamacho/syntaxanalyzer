@@ -26,32 +26,29 @@ def stack_implementation(input_string):
     stack = "$" + list(parsing_table.keys())[0][0]
     stack_table.append([stack, input_string, ""])
     while stack != "$":
-        if stack[-1] == input_string[0]:
+        if stack[-1] + input_string[0] in parsing_table:
+            if parsing_table[stack[-1] + input_string[0]] == "É›":
+                stack_table.append([stack[:-1], input_string, stack[-1] + "→" + "ɛ"])
+                stack = stack[:-1]
+            else:
+                stack_table.append([stack, input_string, stack[-1] + "→" + parsing_table[stack[-1] + input_string[0]]])
+                stack = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]
+        elif stack[-1] == input_string[0]:
             stack = stack[:-1]
             input_string = input_string[1:]
             stack_table.append([stack, input_string, ""])
-        elif parsing_table[stack[-1] + input_string[0]] == "É›":
-            stack_table.append([stack[:-1], input_string, stack[-1] + "→" + "ɛ"])
-            stack = stack[:-1]
-        elif stack[-1] + input_string[0] in parsing_table:
-            curr = stack[-1]
-            stack = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]
-            stack_table.append([stack, input_string, curr + "→" + parsing_table[curr + input_string[0]]])
         else:
             break
-    return stack_table
-
-
-def main():
-    input_string = "(a+a)$"
-    stack_table = stack_implementation(input_string)
     print(f"{'Stack':15}{'Input':15}Output")
     for row in stack_table:
         print(f"{row[0]:15}{row[1]:15}{row[2]}")
-    if stack_table[-1][0] == "$" and stack_table[-1][1] == "$":
-        print("\nString is accepted/valid.")
-    else:
-        print("\nString is not accepted/invalid.")
+    result = "accepted/valid" if stack == "$" and input_string == "$" else "not accepted/invalid"
+    print(f"\nString is {result}.")
+
+
+def main():
+    input_string = "a+(a+a)$"
+    stack_implementation(input_string)
 
 
 if __name__ == "__main__":
