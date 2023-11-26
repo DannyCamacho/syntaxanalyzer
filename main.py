@@ -32,6 +32,7 @@ def stack_implementation(input_string):  # stack_implementation(): determine if 
                 stack = stack[:-1]  # remove last element of stack
             else:  # otherwise use standard rule operation
                 stack_table.append([stack, input_string, stack[-1] + "→" + parsing_table[stack[-1] + input_string[0]]])
+                # comment for above code, perform standard operation for existing rule in parse_table
                 stack = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]  # shift input to stack
         elif stack[-1] == input_string[0]:  # else if the current stack and input symbols match
             stack = stack[:-1]  # remove current stack symbol
@@ -39,17 +40,17 @@ def stack_implementation(input_string):  # stack_implementation(): determine if 
             stack_table.append([stack, input_string, ""])  # append updated stack table and input string to table
         else:  # else input string is invalid
             break  # break out of loop
-    print(f"{'Stack':15}{'Input':15}Output")
-    for row in stack_table:
-        print(f"{row[0]:15}{row[1]:15}{row[2]}")
-    result = "accepted/valid" if stack == "$" and input_string == "$" else "not accepted/invalid"
-    print(f"\nString is {result}.")
+    print(f"{'Stack':15}{'Input':15}Output")  # headers with spacing for print loop
+    for row in stack_table:  # for each row in stack table
+        print(f"{row[0]:15}{row[1]:15}{row[2]}")  # print the elements of each row with proper spacing
+    result = "accepted/valid" if stack == "$" and input_string == "$" else "not accepted/invalid"  # assign result
+    print(f"\nString is {result}.")  # print out result, whether input string is valid or invalid
 
 
-def main():
-    input_string = "a+(a+a)$"
-    stack_implementation(input_string)
+def main():  # main(): input_string validity is checked using rules from predictive_parsing_table.csv
+    input_string = "a+(a+a)$"  # input string being validated
+    stack_implementation(input_string)  # input_string passed to stack_implementation to be validated
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__":  # if we are in current file
+    main()  # run program from main()
