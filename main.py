@@ -31,9 +31,10 @@ def stack_implementation(input_string):  # stack_implementation(): determine if 
                 stack_table.append([stack[:-1], input_string, stack[-1] + "→" + "ɛ"])  # perform epsilon operation
                 stack = stack[:-1]  # remove last element of stack
             else:  # otherwise use standard rule operation
-                stack_table.append([stack, input_string, stack[-1] + "→" + parsing_table[stack[-1] + input_string[0]]])
+                temp = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]  # shift input to temp
+                stack_table.append([temp, input_string, stack[-1] + "→" + parsing_table[stack[-1] + input_string[0]]])
                 # comment for above code, perform standard operation for existing rule in parse_table
-                stack = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]  # shift input to stack
+                stack = temp  # assign temp to stack
         elif stack[-1] == input_string[0]:  # else if the current stack and input symbols match
             stack = stack[:-1]  # remove current stack symbol
             input_string = input_string[1:]  # remove current input symbol
