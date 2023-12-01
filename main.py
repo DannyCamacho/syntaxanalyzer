@@ -30,8 +30,10 @@ def stack_implementation(input_string):  # stack_implementation(): determine if 
             if parsing_table[stack[-1] + input_string[0]] == "É›":  # if epsilon is the rule for combination
                 stack_table.append([stack[:-1], input_string, stack[-1] + "→" + "ɛ"])  # perform epsilon operation
                 stack = stack[:-1]  # remove last element of stack
+            elif parsing_table[stack[-1] + input_string[0]] == "":  # else if the value for key is empty
+                break  # break out of loop
             else:  # otherwise use standard rule operation
-                temp = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]  # shift input to temp
+                temp = stack[:-1] + parsing_table[stack[-1] + input_string[0]][::-1]  # replace last N-T with rule
                 stack_table.append([temp, input_string, stack[-1] + "→" + parsing_table[stack[-1] + input_string[0]]])
                 # comment for above code, perform standard operation for existing rule in parse_table
                 stack = temp  # assign temp to stack
@@ -49,7 +51,7 @@ def stack_implementation(input_string):  # stack_implementation(): determine if 
 
 
 def main():  # main(): input_string validity is checked using rules from predictive_parsing_table.csv
-    input_string = "a+(a+a)$"  # input string being validated
+    input_string = "a(a+a)$"  # input string being validated
     stack_implementation(input_string)  # input_string passed to stack_implementation to be validated
 
 
