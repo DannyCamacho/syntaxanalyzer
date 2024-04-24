@@ -7,7 +7,7 @@ Program used to simulate the syntax analyzer process using a given predictive pa
 ## Output
 Valid Grammar:
 
-![image](https://github.com/DannyCamacho/syntaxanalyzer/assets/91514165/1bcb351b-6f92-4354-993e-6600b4ea56ca)
+![image](https://github.com/DannyCamacho/syntaxanalyzer/assets/91514165/a8a949dd-ec44-4164-ac09-930287a018fd)
 ![image](https://github.com/DannyCamacho/syntaxanalyzer/assets/91514165/b8782778-aa3d-4197-ba93-3e88c83f98a9)
 
 Invalid Grammar:
